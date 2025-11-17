@@ -19,6 +19,6 @@ from django.urls import path, include
 from dispatch_api.views import DispatchAPIView
 
 urlpatterns = [
+    path('', view=DispatchAPIView.as_view(), name='sendmail'),
     path('admin/', admin.site.urls),
-    path('api/sendmail/', view=DispatchAPIView.as_view(), name='sendmail'),
 ]

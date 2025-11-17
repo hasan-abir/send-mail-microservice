@@ -6,3 +6,12 @@ def sendmail_task(email_data):
     recipient = email_data['recipient']
     subject = email_data['subject']
     msg_content = email_data['msg_content']
+
+    return send_mail(
+        subject,
+        msg_content,
+        "hasan@test.com",
+        [recipient],
+        fail_silently=False,
+    )
+

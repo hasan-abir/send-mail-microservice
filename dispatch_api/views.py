@@ -9,6 +9,6 @@ class DispatchAPIView(APIView):
         if serializer.is_valid():
             serialized_data = serializer.validated_data
             sendmail_task.delay(serialized_data)
-            return Response(serialized_data)
+            return Response({'msg': "Success! We've accepted your email request and are dispatching the message now."})
         else:
             return Response(serializer.errors, status=400)

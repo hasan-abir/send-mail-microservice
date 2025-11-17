@@ -1,5 +1,25 @@
 services:
+  redis:
+    image: redis:8.2-alpine
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - "1025:1025"
+      - "8025:8025"
   api:
     build: .
     ports:
       - "8000:8000"
+    environment:
+      CELERY_BROKER_URL: redis://redis:6379
+    depends_on:
+      - redis
+      - mailhog
+  worker:
+    build: .
+    command: celery -A sendmailproject worker -l INFO
+    environment:
+      CELERY_BROKER_URL: redis://redis:6379
+    depends_on:
+      - redis
+      - mailhog
